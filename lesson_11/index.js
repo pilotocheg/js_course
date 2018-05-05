@@ -16,4 +16,5 @@ switch (operation) {
 		break;
 	case 'add':
 		console.log(a + b);
+		break;
 }
