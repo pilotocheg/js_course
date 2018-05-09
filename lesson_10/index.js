@@ -1,4 +1,4 @@
-const myAge = 115;
+const myAge = 2005;
 
 let year = 'лет';
 
