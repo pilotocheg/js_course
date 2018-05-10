@@ -12,11 +12,14 @@ console.log(sum / arr1.length);
 console.log(min);
 console.log(max);
 
-const obj1 = { from: 1, to: 4, value: [4, 5, 12, 7, 5, 4], ignore: [2] };
+const obj1 = { from: 2, to: 6, value: [25, 26, 27, 28, 29, 30, 31, 32], ignore: [3, 5] };
 let arr2 = obj1['value'], arr3 = [];
 
+cycle:
 for (j = obj1['from']; j <= obj1['to']; j++) {
-	if (j == obj1['ignore']) continue;
+	for (k of obj1['ignore']) {
+		if (j == k) continue cycle;
+	}
 	arr3.push(arr2[j]);
 }
 
