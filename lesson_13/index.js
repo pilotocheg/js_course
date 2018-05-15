@@ -13,7 +13,7 @@ function removeKeys2(obj2, arr2) {
 			delete obj2[key];
 		}
 	}
-	let newObj = new Object(obj2);
+	let newObj = Object.assign({}, obj2);
 	
 	return newObj;
 }
