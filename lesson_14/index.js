@@ -46,11 +46,11 @@ function splitArray(arr, num) {
 
 	for (i = 0; i < arr.length; i = num) {
 		if(i === 0){
-			someArr = arr.slice(i, num)
+			someArr = arr.slice(i, num);
 		} else {
-			someArr = arr.slice(i, (num += num))
+			someArr = arr.slice(i, (num += num));
 		}
-		arrArr.push(someArr)
+		arrArr.push(someArr);
 	}
 
 	return arrArr;
