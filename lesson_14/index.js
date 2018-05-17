@@ -39,3 +39,19 @@ function revers() {
 
 	return strArr;
 }
+
+function splitArray(arr, num) {
+	let arrArr = [];
+	let someArr;
+
+	for (i = 0; i < arr.length; i = num) {
+		if(i === 0){
+			someArr = arr.slice(i, num)
+		} else {
+			someArr = arr.slice(i, (num += num))
+		}
+		arrArr.push(someArr)
+	}
+
+	return arrArr;
+}
