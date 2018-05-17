@@ -6,3 +6,14 @@ function add(str = '❤🇺🇦') {
 	}
 	return sum / str.length;
 }
+
+function clearNumbers(arr = []) {
+	for (let i = 0; i < arr.length; i++) {
+		for (let j = 0; j < arr[i].length; j++) {
+			if (typeof arr[i][j] !== 'number') {
+				arr[i].splice(j, 1);
+			}
+		}
+	}
+	return arr;
+}
