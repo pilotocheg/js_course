@@ -21,6 +21,7 @@ function clearNumbers(arr) {
 		for (let j = 0; j < arr[i].length; j++) {
 			if (typeof arr[i][j] !== 'number') {
 				arr[i].splice(j, 1);
+				j -= 1;
 			}
 		}
 	}
