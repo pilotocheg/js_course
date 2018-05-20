@@ -46,13 +46,18 @@ function splitArray(arr, num) {
 	let someArr;
 	let pow = num;
 
-	for (i = 0; i <= arr.length; i++) {
-		i = 0;
-		if(arr.length >= num){
-			someArr = arr.splice(i, num);
-		} else {
-			someArr = arr.splice(i, arr.length);
-		}
+	// for (i = 0; i <= arr.length; i++) {
+	// 	i = 0;
+	// 	if(arr.length >= num){
+	// 		someArr = arr.splice(i, num);
+	// 	} else {
+	// 		someArr = arr.splice(i, arr.length);
+	// 	}
+	// 	arrArr.push(someArr);
+	// }
+
+	while (arr.length){
+		someArr = arr.splice(0, num)
 		arrArr.push(someArr);
 	}
 
