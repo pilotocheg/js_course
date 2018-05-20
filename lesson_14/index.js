@@ -44,12 +44,14 @@ function revers() {
 function splitArray(arr, num) {
 	let arrArr = [];
 	let someArr;
+	let pow = num;
 
-	for (i = 0; i < arr.length; i = num) {
-		if(i === 0){
-			someArr = arr.slice(i, num);
+	for (i = 0; i <= arr.length; i++) {
+		i = 0;
+		if(arr.length >= num){
+			someArr = arr.splice(i, num);
 		} else {
-			someArr = arr.slice(i, (num += num));
+			someArr = arr.splice(i, arr.length);
 		}
 		arrArr.push(someArr);
 	}
