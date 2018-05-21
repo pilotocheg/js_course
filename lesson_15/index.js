@@ -16,14 +16,12 @@ function init(arr, num) {
 
 function listen() {
 	let list = document.querySelector('ul');
-	if (list) {
-		document.body.removeChild(list);
-		// return console.log(true);
-		return true;
-	} else {
-		// return console.log(false);
-		return false;
-	}
+	document.querySelector('button').addEventListener('click', function(){
+		if (document.body.lastChild === list) {
+			document.body.removeChild(list);
+			return true;
+		} else {
+			return false;
+		}
+	});
 }
-
-document.querySelector('button').addEventListener('click', listen);
