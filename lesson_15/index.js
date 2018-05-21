@@ -18,9 +18,11 @@ function listen() {
 	let list = document.querySelector('ul');
 	if (list) {
 		document.body.removeChild(list);
-		return console.log(true);
+		// return console.log(true);
+		return true;
 	} else {
-		return console.log(false);
+		// return console.log(false);
+		return false;
 	}
 }
 
