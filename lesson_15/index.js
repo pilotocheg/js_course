@@ -3,14 +3,18 @@ const parentEl = document.body;
 function init(arr, num) {
 	let list = parentEl.appendChild(document.createElement('ul'));
 
-	for (i = 0; i < num; i++) {
-		let listLi = list.appendChild(document.createElement('li'));
-		listLi.className = arr.className;
+	for (i = 0; i < arr.length; i++) {
+		let obj = arr[i];
+		for (j = 0; j < num; j++) {
+			let listLi = list.appendChild(document.createElement('li'));
+			listLi.className = obj.className;
 
-		for (key in arr.attributes) {
-			listLi.setAttribute(key, arr.attributes[key])
+			for (key in obj.attributes) {
+				listLi.setAttribute(key, obj.attributes[key])
+			}
+			// listLi.innerHTML = arr.content;
+			listLi.appendChild(document.createTextNode(obj.content));
 		}
-		listLi.innerHTML = arr.content;
 	}
 }
 
