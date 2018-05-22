@@ -1,0 +1,27 @@
+.container {
+	padding: 20px;
+	display: inline-block;
+	background-image: url(timer.png);
+	background-size: contain;
+	min-width: 300px;
+	height: 300px;
+	text-align: center;
+	border-radius: 20%;
+	position: relative;
+	font-size: 20px;
+}
+
+#numbers {
+	margin-top: 90px;
+}
+
+#seconds {
+	margin-top: 10px;
+	text-shadow: 0 1px 2px gray;
+}
+
+#num {
+	font-size: 40px;
+	font-style: italic;
+	font-weight: 700;
+}
