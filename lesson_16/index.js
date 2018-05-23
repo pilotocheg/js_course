@@ -89,7 +89,7 @@ document.getElementById('x2').addEventListener('click', function(){
 	startB.removeAttribute('disabled');
 });
 document.getElementById('x3').addEventListener('click', function(){
-	speed = 366;
+	speed = 336;
 	clearInterval(interval);
 	startB.removeAttribute('disabled');
 })

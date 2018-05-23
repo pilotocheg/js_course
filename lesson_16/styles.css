@@ -1,7 +1,7 @@
 .container {
 	padding: 20px;
 	display: inline-block;
-	background-image: url(timer.png);
+	background-image: url(TImer.png);
 	background-size: contain;
 	width: 300px;
 	height: 300px;
@@ -26,6 +26,8 @@
 	margin-top: 150px;
 	text-shadow: 0 2px 3px gray;
 	line-height: 1em;
+	position: relative;
+	z-index: 3;
 }
 
 #second {
@@ -83,6 +85,8 @@
 	font-size: 15px;
 	font-weight: 600;
 	padding: 3px;
+	position: relative;
+	z-index: 3;
 }
 
 .speed input {
