@@ -95,17 +95,23 @@ function count() {
 startB.addEventListener('click', count);
 
 document.getElementById('x1').addEventListener('click', function(){
-	speed = 1000;
-	clearInterval(interval);
-	if (num > 0 && checkPause === false) count();
+	if (speed !== 1000) {
+		speed = 1000;
+		clearInterval(interval);
+		if (num > 0 && checkPause === false) count();
+	}
 });
 document.getElementById('x2').addEventListener('click', function(){
-	speed = 500;
-	clearInterval(interval);
-	if (num > 0 && checkPause === false) count();
+	if (speed !== 500) {
+		speed = 500;
+		clearInterval(interval);
+		if (num > 0 && checkPause === false) count();
+	}
 });
 document.getElementById('x3').addEventListener('click', function(){
-	speed = 336;
-	clearInterval(interval);
-	if (num > 0 && checkPause === false) count();
+	if (speed !== 1000 / 3) {
+		speed = 1000 / 3;
+		clearInterval(interval);
+		if (num > 0 && checkPause === false) count();
+	}
 })
