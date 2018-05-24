@@ -109,8 +109,8 @@ document.getElementById('x2').addEventListener('click', function(){
 	}
 });
 document.getElementById('x3').addEventListener('click', function(){
-	if (speed !== 1000 / 3) {
-		speed = 1000 / 3;
+	if (speed !== 333) {
+		speed = 333;
 		clearInterval(interval);
 		if (num > 0 && checkPause === false) count();
 	}
