@@ -1,4 +1,4 @@
-const n = 15;
+const n = 10;
 
 const numbers = document.getElementById('numbers');
 const startB = document.getElementById('start');
@@ -6,12 +6,8 @@ const pauseB = document.getElementById('pause');
 const stopB = document.getElementById('stop');
 const second = document.getElementById('second');
 const letS = document.getElementById('letS');
-
-let num = 0, counter = 0, speed = 1000, interval;
-
-letS.innerHTML = 's';
-
-second.appendChild(document.createTextNode(num));
+const audio = document.getElementById('audio');
+const strinG = document.getElementById('string');
 
 for (i = 1; i <= n; i += 1) {
 	let span = document.createElement('span');
@@ -24,13 +20,23 @@ for (i = 1; i <= n; i += 1) {
 	}
 }
 
+letS.innerHTML = 's';
+
+let num = 0, counter = 0, speed = 1000, interval;
+let	deg = 0;
+let checkPause = false;
+
+second.appendChild(document.createTextNode(num));
 
 function count() {
-	
+	audio.curentTime = 0;
 	interval = setInterval(function(){
+		audio.play();
 		num += 1;
+		deg += 6;
+		if (deg === 360) deg = 0;
+		strinG.style.transform = `rotate(${deg}deg)`;
 		second.innerHTML = num;
-		startB.setAttribute('disabled', 'true');
 
 		if (num === 1) {
 			letS.innerHTML = '';
@@ -53,11 +59,16 @@ function count() {
 			document.getElementById(`span_${counter + 1}`).style.backgroundColor = 'orange';
 			counter += 1;
 		}
+		startB.setAttribute('disabled', 'true');
+		checkPause = false;
 	}, speed);
+
 
 	pauseB.addEventListener('click', function(){
 		clearInterval(interval);
 		startB.removeAttribute('disabled');
+		audio.pause();
+		checkPause = true;
 	})
 
 	stopB.addEventListener('click', function(){
@@ -65,14 +76,19 @@ function count() {
 		second.innerHTML = 0;
 		num = 0;
 		counter = 0;
-		
+		deg = 0;
+		strinG.style.transform = ``;
+		audio.pause();
+		audio.curentTime = 0;
+
 		let numb = numbers.children;
 		for (let i = 1; i < numb.length - 1; i++ ) {
 			numb[i].style.backgroundColor = '';
 		}
 
-		startB.removeAttribute('disabled');
 		letS.innerHTML = 's';
+		startB.removeAttribute('disabled');
+		checkPause = false;
 	})
 }
 
@@ -81,15 +97,15 @@ startB.addEventListener('click', count);
 document.getElementById('x1').addEventListener('click', function(){
 	speed = 1000;
 	clearInterval(interval);
-	startB.removeAttribute('disabled');
+	if (num > 0 && checkPause === false) count();
 });
 document.getElementById('x2').addEventListener('click', function(){
 	speed = 500;
 	clearInterval(interval);
-	startB.removeAttribute('disabled');
+	if (num > 0 && checkPause === false) count();
 });
 document.getElementById('x3').addEventListener('click', function(){
 	speed = 336;
 	clearInterval(interval);
-	startB.removeAttribute('disabled');
+	if (num > 0 && checkPause === false) count();
 })
