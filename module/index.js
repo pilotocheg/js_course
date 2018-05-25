@@ -34,9 +34,20 @@ function row(a, b, c, diff) {
 			return numbers.join(' < ');
 			break;
 		case '>':
-			numbers.sort();
-			numbers.reverse();
+			numbers.sort().reverse();
 			return numbers.join(' > ');
 			break;
 	}
+}
+
+// Task 4
+
+function fact(a) {
+	let n = 0;
+	let fact = 0;
+	while (a > 1) {
+		n++;
+		a = a / n;
+	}
+	return n;
 }
