@@ -58,14 +58,22 @@ function matrixDiff(arr1, arr2) {
 	let allSum = 0;
 	cycle: for (let i = 0; i < arguments.length; i++) {
 		let sum = 0;
-		for (let j = 0; j < arguments[i].length; j++){
-				let dif = arguments[i][j][0];
-				for (let k = 1; k < arguments[i][j].length; k++) {
-					dif -= arguments[i][j][k];
-				}
-				sum += Math.abs(dif);
+		if (arguments[0].length === arguments[i].length){
+			for (let j = 0; j < arguments[i].length; j++){
+					let dif = arguments[i][j][0];
+					if (arguments[i][0].length === arguments[i][j].length){
+						for (let k = 1; k < arguments[i][j].length; k++) {
+							dif -= arguments[i][j][k];
+						}
+					}	else {
+						return NaN;
+					}
+					sum += Math.abs(dif);
+			}
+			allSum += sum;
+		} else {
+			return NaN;
 		}
-		allSum += sum;
 	}
 	return allSum;
 }
