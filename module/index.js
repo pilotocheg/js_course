@@ -44,7 +44,7 @@ function row(a, b, c, diff) {
 
 function fact(a) {
 	let n = 0;
-	let fact = 0;
+
 	while (a > 1) {
 		n++;
 		a = a / n;
