@@ -56,16 +56,24 @@ function fact(a) {
 
 function matrixDiff(arr1, arr2) {
 	let allSum = 0;
-	cycle: for (let i = 0; i < arguments.length; i++) {
+	for (let i = 0; i < arguments.length; i++) {
 		let sum = 0;
-		for (let j = 0; j < arguments[i].length; j++){
-				let dif = arguments[i][j][0];
-				for (let k = 1; k < arguments[i][j].length; k++) {
-					dif -= arguments[i][j][k];
-				}
-				sum += Math.abs(dif);
+		if (arguments[0].length === arguments[i].length){
+			for (let j = 0; j < arguments[i].length; j++){
+					let dif = arguments[i][j][0];
+					if (arguments[i][0].length === arguments[i][j].length){
+						for (let k = 1; k < arguments[i][j].length; k++) {
+							dif -= arguments[i][j][k];
+						}
+					} else {
+						return NaN;
+					}
+					sum += Math.abs(dif);
+			}
+			allSum += sum;
+		} else {
+			return NaN;
 		}
-		allSum += sum;
 	}
 	return allSum;
 }
@@ -80,22 +88,48 @@ function strangeSearch (arr){
 		div.appendChild(input);
 		document.body.appendChild(div);
 	}
+
 	let button = document.createElement('button');
 	button.setAttribute('id', 'go');
 	button.appendChild(document.createTextNode('Search'));
 	document.body.appendChild(button);
+
 	let go = document.getElementById('go');
+
 	go.addEventListener('click', function(){
-		let arr = document.body.children;
+		let arr2 = document.querySelectorAll('div');
 		let words = [];
-		for (i = 0; i < arr.length; i++){
-			let inp = document.getElementsByTagName('input')[i];
-			if (inp.getAttribute('value')) {
-				words.push(arr[i]);
+		let nums = [];
+		let n = 0;
+		for (i = 0; i < arr2.length; i++){
+			let inp = document.querySelectorAll('input')[i];
+			if (inp.value !== '0') {
+				if (+inp.value === n) n = 0; 
+				nums[+inp.value + n] = arr[i];
+				n++;
 			}
 		}
-
-		window.location.href = `https://www.youtube.com/?gl=UA&hl=ru?${words.join('+')}`;
+		for (key of nums) {
+			if (key === undefined) nums.splice(nums[key], 1);
+		}
+		// console.log(words);
+		console.log(nums);
+		// window.location.href = `https://www.youtube.com/?gl=UA&hl=ru?${words.join('+')}`;
 	});
 
 }
+
+// Написать функцию “strangeSearch”, которая принимает один аргумент, массив слов.
+
+// Для каждого слова она должна создать блок, в котором будет текст этого слова и
+// элемент input с типом number, с начальным значением 0. Создать кнопку с id=”go”, и
+// текстом “Search”, по нажатию на которую страница будет перенаправлена на страницу
+// поиска YouTube, где в поиске будет составлена фраза из слов у input-ов которых
+// значение больше чем 0, и они должны стоять в порядке увеличения чисел их input-ов и
+// быть разделенными символом ‘+’.
+
+// Вам может пригодится:
+
+// inputElement.value
+
+// window.location.href
