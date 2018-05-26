@@ -86,10 +86,10 @@ function strangeSearch (arr){
 	document.body.appendChild(button);
 	let go = document.getElementById('go');
 	go.addEventListener('click', function(){
-		let arr = document.querySelector('div').children;
-			let words = [];
+		let arr = document.body.children;
+		let words = [];
 		for (i = 0; i < arr.length; i++){
-			let inp = document.querySelectorAll('input')[i];
+			let inp = document.getElementsByTagName('input')[i];
 			if (inp.getAttribute('value')) {
 				words.push(arr[i]);
 			}
