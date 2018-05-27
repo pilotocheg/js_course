@@ -104,17 +104,21 @@ function strangeSearch (arr){
 		for (i = 0; i < arr2.length; i++){
 			let inp = document.querySelectorAll('input')[i];
 			if (inp.value !== '0') {
-				if (+inp.value === n) n = 0; 
-				nums[+inp.value + n] = arr[i];
-				n++;
+				// if (+inp.value === n) n = 0; 
+				nums[+inp.value] = arr[i];
+				// n++;
 			}
 		}
 		for (key of nums) {
-			if (key === undefined) nums.splice(nums[key], 1);
+			// if (key === undefined) nums.splice(nums[key], 1);
 		}
 		// console.log(words);
-		console.log(nums);
-		// window.location.href = `https://www.youtube.com/?gl=UA&hl=ru?${words.join('+')}`;
+		console.log(nums.join('+'));
+		window.location.href = `https://www.youtube.com/?gl=UA&hl=ru?+${nums}`;
+		// window.addEventListener('DOMContentLoaded', function(){
+		// 	let searchB = document.querySelector('input[id="search"]');
+		// 	searchB.value = `${nums.join("+")}`;
+		// });
 	});
 
 }
