@@ -95,45 +95,28 @@ function strangeSearch (arr){
 	document.body.appendChild(button);
 
 	let go = document.getElementById('go');
+	let nums = [];
 
 	go.addEventListener('click', function(){
 		let arr2 = document.querySelectorAll('div');
-		let words = [];
-		let nums = [];
-		let n = 0;
-		for (i = 0; i < arr2.length; i++){
-			let inp = document.querySelectorAll('input')[i];
+		
+		for (let j = 0; j < arr2.length; j++){
+			let inp = document.querySelectorAll('input')[j];
 			if (inp.value !== '0') {
-				// if (+inp.value === n) n = 0; 
-				nums[+inp.value] = arr[i];
-				// n++;
+				let n = 0;
+				for (num in nums) {
+					if (+inp.value + n === +num){
+						n++;
+					}
+				}
+				nums[+inp.value + n] = arr[j];
 			}
 		}
 		for (key of nums) {
-			// if (key === undefined) nums.splice(nums[key], 1);
+			if (key === undefined) nums.splice(nums[key], 1);
 		}
-		// console.log(words);
-		console.log(nums.join('+'));
-		window.location.href = `https://www.youtube.com/?gl=UA&hl=ru?+${nums}`;
-		// window.addEventListener('DOMContentLoaded', function(){
-		// 	let searchB = document.querySelector('input[id="search"]');
-		// 	searchB.value = `${nums.join("+")}`;
-		// });
+		// console.log(nums);
+		window.location = `https://www.youtube.com/results?search_query=${nums.join("%2B")}`;
 	});
 
 }
-
-// Написать функцию “strangeSearch”, которая принимает один аргумент, массив слов.
-
-// Для каждого слова она должна создать блок, в котором будет текст этого слова и
-// элемент input с типом number, с начальным значением 0. Создать кнопку с id=”go”, и
-// текстом “Search”, по нажатию на которую страница будет перенаправлена на страницу
-// поиска YouTube, где в поиске будет составлена фраза из слов у input-ов которых
-// значение больше чем 0, и они должны стоять в порядке увеличения чисел их input-ов и
-// быть разделенными символом ‘+’.
-
-// Вам может пригодится:
-
-// inputElement.value
-
-// window.location.href
