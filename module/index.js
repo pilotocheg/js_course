@@ -112,10 +112,13 @@ function strangeSearch (arr){
 				nums[+inp.value + n] = arr[j];
 			}
 		}
-		for (key of nums) {
-			if (key === undefined) nums.splice(nums[key], 1);
+		for (let k = 0; k < nums.length; k++) {
+			if (nums[k] === undefined) {
+				nums.splice(k, 1);
+				k -= 1;
+			}
 		}
-		// console.log(nums);
+		// console.log(nums.join('+'));
 		window.location = `https://www.youtube.com/results?search_query=${nums.join("%2B")}`;
 	});
 
