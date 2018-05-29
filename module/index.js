@@ -43,11 +43,13 @@ function row(a, b, c, diff) {
 // Task 4
 
 function fact(a) {
-	let n = 0;
+	let n = 1;
+	let f = 1;
 
 	while (a > 1) {
-		n++;
-		a = a / n;
+		n *= (f + 1);
+		f++;
+		a--;
 	}
 	return n;
 }
