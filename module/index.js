@@ -57,27 +57,24 @@ function fact(a) {
 // Task 5
 
 function matrixDiff(arr1, arr2) {
-	let allSum = 0;
-	for (let i = 0; i < arguments.length; i++) {
-		let sum = 0;
-		if (arguments[0].length === arguments[i].length){
-			for (let j = 0; j < arguments[i].length; j++){
-					let dif = arguments[i][j][0];
-					if (arguments[i][0].length === arguments[i][j].length){
-						for (let k = 1; k < arguments[i][j].length; k++) {
-							dif -= arguments[i][j][k];
-						}
-					} else {
-						return NaN;
-					}
-					sum += Math.abs(dif);
-			}
-			allSum += sum;
-		} else {
-			return NaN;
+	const length1 = arr1.length;
+	const length2 = arr2.length;
+	if (length1 !== length2) return NaN;
+
+	for (let i = 0; i < arr1.length; i += 1){
+		if(arr1[i].length !== arr2[i].length) return NaN;
+	}
+
+	let sum = 0;
+	for (let i = 0; i < arr1.length; i++) {
+		for (let j = 0; j < arr1[i].length; j++){
+			const elem1 = arr1[i][j];
+			const elem2 = arr2[i][j];
+
+			sum += Math.abs(elem1 - elem2);
 		}
 	}
-	return allSum;
+	return sum;
 }
 
 function strangeSearch (arr){
