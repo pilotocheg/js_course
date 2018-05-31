@@ -1,11 +1,13 @@
 const moment = require('moment');
-
-const date = document.getElementById('date').value;
+moment.locale('ru');
 const btn = document.getElementById('btn');
 const num = document.getElementById('num');
-const result = moment(date, "YYYY-MM-DD").fromNow();
+const date = document.getElementById('date');
+
+date.value = "2019-01-12";
+
 
 btn.addEventListener('click', function(){
-    num.innerHTML = 'result';
+    const result = moment().diff(`${date.value}`, 'days');
+    num.innerHTML = `${Math.abs(result)}`;
 })
-// console.log(result);
