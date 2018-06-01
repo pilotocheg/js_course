@@ -79,6 +79,10 @@ label span {
 	color: #CE4010;
 }
 
+.days {
+	text-shadow: 0 0 3px black; 
+}
+
 #num {
 	font-size: 50px;
 	color: #CE4010;
