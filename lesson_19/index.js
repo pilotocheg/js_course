@@ -1,7 +1,8 @@
-const checkAuth = new Promise((resolve, reject) => {
+const checkAuth = new Promise((resolve, reject) => {  
     setTimeout(() => {
+        let authInfo = {isAuth: true};
+        if(!authInfo.isAuth) reject( null );
         resolve( {name: 'Max'} );
-        reject( null );
     }, 2000);
 })
 .then(user => {
