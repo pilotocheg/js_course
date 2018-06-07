@@ -19,9 +19,9 @@ class AlevelStudent extends Human {
 
     averageMark() {
         let marks = this.arr.marks;
-        let sum = marks[0];
+        let sum = 0;
         for (let i in marks) {
-            if (i > 0) sum += marks[i];
+            sum += marks[i];
         }
         console.log(sum / marks.length);
     }
