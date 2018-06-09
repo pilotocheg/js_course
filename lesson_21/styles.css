@@ -28,6 +28,12 @@ input {
 #lat {
     margin-right: 20px;
 }
+[for="city"] {
+    margin-left: 55px;
+}
+#city{
+    margin-right: 43px;
+}
 #btn {
     color: darkmagenta;
     font-size: 20px;

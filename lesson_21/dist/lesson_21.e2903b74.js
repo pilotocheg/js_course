@@ -164,7 +164,11 @@ var Dom = function () {
 
         var lat = document.getElementById('lat');
         var long = document.getElementById('long');
-        var btn = document.getElementById('btn');
+        var city = document.getElementById('city');
+        var country = document.getElementById('country');
+
+        var hover = document.getElementById('hover');
+        var circle1 = document.getElementById('circle1');
     }
 
     _createClass(Dom, [{
@@ -172,6 +176,8 @@ var Dom = function () {
         value: function setCoordinates(crd) {
             lat.value = crd.latitude;
             long.value = crd.longitude;
+            city.value = crd.city;
+            country.value = crd.country_name;
         }
     }]);
 
@@ -203,7 +209,7 @@ btn.addEventListener('click', function () {
         return dom.setCoordinates(res);
     });
 });
-},{"./location_api":8,"./dom":9}],20:[function(require,module,exports) {
+},{"./location_api":8,"./dom":9}],22:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -373,5 +379,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[20,4], null)
+},{}]},{},[22,4], null)
 //# sourceMappingURL=/lesson_21.e2903b74.map
