@@ -22,7 +22,8 @@ input {
     vertical-align: middle;
     color: darkmagenta;
     font-size: 20px;
-    width: 100px;
+    width: 150px;
+    padding: 0 5px;
 
 }
 #lat {
@@ -81,4 +82,8 @@ input {
     border: 1px solid darkmagenta;
     border-radius: 50%;
     background: orange;
+}
+
+#circle1 {
+    background: darkmagenta;
 }

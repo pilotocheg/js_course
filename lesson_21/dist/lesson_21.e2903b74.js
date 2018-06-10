@@ -98,7 +98,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({8:[function(require,module,exports) {
+})({4:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -147,7 +147,7 @@ var LocationApi = function () {
 
 exports.default = LocationApi;
 ;
-},{}],9:[function(require,module,exports) {
+},{}],5:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -168,10 +168,51 @@ var Dom = function () {
         var country = document.getElementById('country');
 
         var hover = document.getElementById('hover');
+        var animation = document.getElementById('animation');
         var circle1 = document.getElementById('circle1');
+        var circle2 = document.getElementById('circle2');
+        var circle3 = document.getElementById('circle3');
     }
 
     _createClass(Dom, [{
+        key: 'showPreloader',
+        value: function showPreloader() {
+            var _this = this;
+
+            hover.style.display = 'block';
+            animation.style.display = 'block';
+            this.i = 2;
+            this.interval = setInterval(function () {
+                switch (_this.i) {
+                    case 1:
+                        circle1.style.background = 'darkmagenta';
+                        circle3.style.background = 'orange';
+                        break;
+                    case 2:
+                        circle1.style.background = 'orange';
+                        circle2.style.background = 'darkmagenta';
+                        break;
+                    case 3:
+                        circle2.style.background = 'orange';
+                        circle3.style.background = 'darkmagenta';
+                        _this.i = 0;
+                        break;
+                }
+                _this.i += 1;
+            }, 300);
+        }
+    }, {
+        key: 'hidePreloader',
+        value: function hidePreloader() {
+            hover.style.display = 'none';
+            animation.style.display = 'none';
+            clearInterval(this.interval);
+            this.i = 2;
+            circle1.style.background = 'darkmagenta';
+            circle2.style.background = 'orange';
+            circle3.style.background = 'orange';
+        }
+    }, {
         key: 'setCoordinates',
         value: function setCoordinates(crd) {
             lat.value = crd.latitude;
@@ -185,7 +226,7 @@ var Dom = function () {
 }();
 
 exports.default = Dom;
-},{}],4:[function(require,module,exports) {
+},{}],3:[function(require,module,exports) {
 'use strict';
 
 var _location_api = require('./location_api');
@@ -203,13 +244,21 @@ var dom = new _dom2.default();
 var btn = document.getElementById('btn');
 
 btn.addEventListener('click', function () {
-    locationApi.getMyIp().then(function (res) {
-        return locationApi.getMyLocation(res.ip);
-    }).then(function (res) {
-        return dom.setCoordinates(res);
-    });
+    dom.showPreloader();
+    setTimeout(function () {
+        locationApi.getMyIp().then(function (res) {
+            return locationApi.getMyLocation(res.ip);
+        }).then(function (res) {
+            return dom.setCoordinates(res);
+        }).then(function (res) {
+            return dom.hidePreloader();
+        }).catch(function (rej) {
+            dom.hidePreloader();
+            console.log('Error:', rej);
+        });
+    }, 2000);
 });
-},{"./location_api":8,"./dom":9}],22:[function(require,module,exports) {
+},{"./location_api":4,"./dom":5}],8:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -238,7 +287,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '51019' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '54783' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -379,5 +428,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[22,4], null)
+},{}]},{},[8,3], null)
 //# sourceMappingURL=/lesson_21.e2903b74.map
