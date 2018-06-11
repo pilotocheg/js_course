@@ -133,6 +133,8 @@ var LocationApi = function () {
             return fetch('https://freegeoip.net/json/' + myIp).then(function (res) {
                 if (res.status === 200) {
                     return res.json();
+                } else {
+                    return Promise.reject(res.status);
                 }
             })
             // .then(res => console.log(res.latitude, res.longitude))
@@ -166,6 +168,7 @@ var Dom = function () {
         var long = document.getElementById('long');
         var city = document.getElementById('city');
         var country = document.getElementById('country');
+        var ip = document.getElementById('ip');
 
         var hover = document.getElementById('hover');
         var animation = document.getElementById('animation');
@@ -219,6 +222,7 @@ var Dom = function () {
             long.value = crd.longitude;
             city.value = crd.city;
             country.value = crd.country_name;
+            ip.innerHTML = 'ip: ' + crd.ip;
         }
     }]);
 
@@ -258,7 +262,7 @@ btn.addEventListener('click', function () {
         });
     }, 2000);
 });
-},{"./location_api":4,"./dom":5}],8:[function(require,module,exports) {
+},{"./location_api":4,"./dom":5}],11:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -287,7 +291,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '54783' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49280' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -428,5 +432,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[8,3], null)
+},{}]},{},[11,3], null)
 //# sourceMappingURL=/lesson_21.e2903b74.map

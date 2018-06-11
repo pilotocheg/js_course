@@ -16,6 +16,8 @@ export default class LocationApi {
             .then (res => {
                 if (res.status === 200) {
                     return res.json();
+                } else {
+                    return Promise.reject(res.status);
                 }
             })
             // .then(res => console.log(res.latitude, res.longitude))

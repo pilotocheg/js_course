@@ -4,6 +4,7 @@ export default class Dom {
         const long = document.getElementById('long');
         const city = document.getElementById('city');
         const country = document.getElementById('country');
+        const ip = document.getElementById('ip');
 
         const hover = document.getElementById('hover');
         const animation = document.getElementById('animation');
@@ -52,5 +53,6 @@ export default class Dom {
         long.value = crd.longitude;
         city.value = crd.city;
         country.value = crd.country_name;
+        ip.innerHTML = `ip: ${crd.ip}`;
     };
 }
