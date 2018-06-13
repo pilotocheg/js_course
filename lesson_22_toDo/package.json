@@ -1,0 +1,12 @@
+{
+  "name": "lesson_22_todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "host": "parcel index.html -p 3000"
+  },
+  "author": "",
+  "license": "ISC"
+}
