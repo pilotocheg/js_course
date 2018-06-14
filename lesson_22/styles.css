@@ -49,7 +49,8 @@ input {
     border-radius: 5px;
     border: 2px solid darkmagenta;
     outline: none;
-    margin-top: 25px;
+    margin: 25px auto 0;
+    display: block;
 }
 #btn:hover {
     background: darkmagenta;
@@ -97,14 +98,15 @@ input {
 .div1, .div2 {
     width: calc((100% - 50px) / 2);
     background: rgba(0, 0, 0, 0.2);
-    margin: 0 10px;
+    margin: 10px;
     min-height: 300px;
     display: inline-block;
     vertical-align: middle;
     border-radius: 10px;
     padding: 15px 25px;
     box-sizing: border-box;
-    text-align: right
+    text-align: right;
+    min-width: 395px;
 }
 
 .div2 {
@@ -140,7 +142,7 @@ input {
     border-radius: 5px;
     border: 2px solid darkmagenta;
     outline: none;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 #weatherBtn:hover {
@@ -160,7 +162,7 @@ input {
     border: 2px solid orange;
     cursor: initial;
     outline: 3px solid darkmagenta;
-    outline-offset: 1px;
+    outline-offset: 0px;
 }
 
 #ip {
