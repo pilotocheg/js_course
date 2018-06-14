@@ -98,18 +98,19 @@ h1 span {
 
 .done {
     position: absolute;
-    background: lightseagreen;
+    background: white;
     cursor: pointer;
     border-radius: 50%;
+    border: 2px solid lightseagreen;
     right: 30px;
     top: 50%;
     transform: translateY(-50%);
-    border: none;
     outline: none;
     color: white;
-    padding: 0 7px;
+    padding: 0 5px 3px;
     width: 23px;
     height: 23px;
+    line-height: 1em;
 }
 
 .done:active {
