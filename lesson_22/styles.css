@@ -10,7 +10,7 @@ body {
     min-height: 600px;
     color: blueviolet;
     text-align: center;
-    padding: 50px;
+    padding: 50px 100px;
     box-sizing: border-box;
     text-shadow: 0 0 3px orange;
     font-size: 30px;
@@ -135,13 +135,12 @@ input {
 
 #weatherBtn {
     color: darkmagenta;
-    /* font-size: 20px; */
     background: orange;
     cursor: pointer;
-    /* padding: 5px 15px; */
     border-radius: 5px;
     border: 2px solid darkmagenta;
     outline: none;
+    margin-right: 20px;
 }
 
 #weatherBtn:hover {
@@ -150,4 +149,22 @@ input {
 }
 #weatherBtn:active {
     transform: scale(1.1);
+}
+
+#city:hover {
+    border: 2px solid orange;
+    cursor: pointer;
+}
+
+#city:focus {
+    border: 2px solid orange;
+    cursor: initial;
+    outline: 3px solid darkmagenta;
+    outline-offset: 1px;
+}
+
+#ip {
+    color: orange;
+    text-shadow: 2px 2px 5px blueviolet;
+    margin: 10px 0 20px;
 }

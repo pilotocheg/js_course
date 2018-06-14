@@ -8,7 +8,6 @@ export default class LocationApi {
                     return Promise.reject(res.status);
                 }
             })
-            .catch(rej => console.log('Получение IP не удалось. Error: ' + rej));
     };
     
     getMyLocation(myIp) {
@@ -20,7 +19,5 @@ export default class LocationApi {
                     return Promise.reject(res.status);
                 }
             })
-            // .then(res => console.log(res.latitude, res.longitude))
-            .catch(rej => console.log('Получение координат по IP не удалось. Error: ' + rej));
     }
 };
