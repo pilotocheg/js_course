@@ -68,9 +68,12 @@ h1 span {
 
 #list li {
     position: relative;
-    padding: 6px 50px 6px 0;
+    padding: 6px 58px 6px 5px;
     font-size: 18px;
     color: lightcoral;
+    margin: 2px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 2px gray; 
 }
 
 .delete {
@@ -78,14 +81,15 @@ h1 span {
     background: lightcoral;
     cursor: pointer;
     border-radius: 50%;
-    right: 0;
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
     border: none;
     outline: none;
     color: white;
     font-weight: 600;
-    height: 20px;
+    height: 23px;
+    width: 23px;
 }
 
 .delete:active {
@@ -97,14 +101,15 @@ h1 span {
     background: lightseagreen;
     cursor: pointer;
     border-radius: 50%;
-    right: 23px;
+    right: 30px;
     top: 50%;
     transform: translateY(-50%);
     border: none;
     outline: none;
     color: white;
-    font-weight: 600;
-    padding: 0 6px;
+    padding: 0 7px;
+    width: 23px;
+    height: 23px;
 }
 
 .done:active {
