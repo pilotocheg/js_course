@@ -25,18 +25,23 @@ class Task {
         this.li.appendChild(this.done);
         this.li.appendChild(this.del);
         this.list.appendChild(this.li);
+        
+        this.text.value = '';
     };
 
     deleteTask() {
         this.li.remove();
         delete this;
+        console.log(this);
     }
     doneTask() {
         if(this.input.checked) {
             this.li.style.textDecoration = 'line-through';
+            this.li.style.color = 'lightseagreen';
             this.done.style.background = 'lightseagreen';
         } else {
             this.li.style.textDecoration = 'none';
+            this.li.style.color = 'lightcoral';
             this.done.style.background = 'none';
         }
     }
@@ -45,5 +50,9 @@ class Task {
 const btn = document.getElementById('btn');
 
 btn.addEventListener('click', () => {
-    new Task();
+    const text = document.getElementById('text');
+    if (text.value) {
+        new Task();
+    }
+    
 })
