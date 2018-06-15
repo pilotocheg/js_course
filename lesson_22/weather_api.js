@@ -7,14 +7,34 @@ export default class Weather {
         this.icon = document.getElementById('icon');
     }
     
-    getWeather(myCity) {
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${myCity}&appid=${this.api}`)
+    // Данные по городу сохраняются в кэш, на 10 минут, чтобы не превышать лимит запросов
+    getWeather(city) {
+        const cache = JSON.parse(localStorage.getItem('cache')) || {};
+        if (cache[city]) {
+            if (Date.now() - cache[city].timestamp < 1000 * 60 * 10) {
+                return Promise.resolve(cache[city].data);
+            } else {
+                cache[city] = null;
+                localStorage.setItem('cache', JSON.stringify(cache));
+            }
+        }
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.api}`)
             .then(res => {
                 if(res.status === 200) {
                     return res.json();
                 } else {
                     return Promise.reject(res.status);
                 }
+            })
+            .then(data => {
+                cache[city] = {
+                    timestamp: Date.now(),
+                    data
+                };
+                localStorage.setItem('cache', JSON.stringify(cache));
+                console.log(cache);
+
+                return data;
             })
     }
 
