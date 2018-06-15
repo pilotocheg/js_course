@@ -10,13 +10,13 @@ body {
     min-height: 600px;
     color: blueviolet;
     text-align: center;
-    padding: 50px 100px;
+    padding: 20px 100px;
     box-sizing: border-box;
     text-shadow: 0 0 3px orange;
     font-size: 30px;
 }
 h1 {
-    margin-bottom: 0px;
+    margin: 0px;
 }
 h2 {
     margin: 0;
