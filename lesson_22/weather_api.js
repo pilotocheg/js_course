@@ -39,7 +39,7 @@ export default class Weather {
     }
 
     setWeather(data) {
-        this.temp.innerHTML = Math.round(data.main.temp - 273.15) + ' &#8451;';
+        this.temp.innerHTML = Math.round(data.main.temp - 273.15) + '&#8451;';
         this.place.innerHTML = data.name + ' / ' + data.sys.country;
         this.description.innerHTML = `"${data.weather[0].description}"`;
         this.icon.src = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`
