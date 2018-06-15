@@ -3,7 +3,7 @@
 }
 
 body {
-    background: lightblue;
+    background: lightseagreen;
     text-align: center;
     padding: 20px;
 }
@@ -35,6 +35,9 @@ h1 span {
     outline: none;
     font-size: 15px;
     color: lightseagreen;
+}
+#text:focus {
+    border: 2px solid lightseagreen;
 }
 
 #btn {
