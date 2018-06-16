@@ -28,7 +28,7 @@ class Task {
         this.del.innerHTML = 'x';
         this.del.onclick = this.deleteTask.bind(this);
 
-        this.li.innerHTML = this.textValue;
+        this.li.appendChild(document.createTextNode(this.textValue));
         this.li.appendChild(this.done);
         this.li.appendChild(this.del);
         this.list.appendChild(this.li);
