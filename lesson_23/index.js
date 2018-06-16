@@ -1,13 +1,19 @@
+const btn = document.getElementById('btn');
+const text = document.getElementById('text');
+const todoCache = [];
+let counter = 0;
+
 class Task {
-    constructor () {
+    constructor (textValue) {
         this.list = document.getElementById('list');
-        this.text = document.getElementById('text');
+        this.textValue = textValue;
 
         this.li = document.createElement('li');
         this.del = document.createElement('button');
         this.done = document.createElement('label');
         this.input = document.createElement('input');
         this.counter = counter;
+        this.doneCheck = false;
 
         this.createTask();
     }
@@ -22,70 +28,70 @@ class Task {
         this.del.innerHTML = 'x';
         this.del.onclick = this.deleteTask.bind(this);
 
-        this.li.innerHTML = this.text.value;
+        this.li.innerHTML = this.textValue;
         this.li.appendChild(this.done);
         this.li.appendChild(this.del);
         this.list.appendChild(this.li);
+
+        todoCache[this.counter] = {
+            textValue: this.textValue,
+            doneCheck: this.doneCheck
+        };
+        localStorage.setItem('todoCache', JSON.stringify(todoCache));
         
-        this.text.value = '';
+        text.value = '';
         counter++;
     };
 
     deleteTask() {
         this.li.remove();
-        delete taskArr[this.counter];
-        if(this.list.children.length === 0) {
-            while (taskArr.length) {
-                taskArr.splice(0, 1);
-                counter = 0;
-            }
-        }
-        console.log(taskArr);
+        delete todoCache[this.counter];
+        localStorage.setItem('todoCache', JSON.stringify(todoCache));
+
     }
+    
     doneTask() {
-        if(this.input.checked) {
+        if(!this.doneCheck) {
             this.li.style.textDecoration = 'line-through';
             this.li.style.color = 'lightseagreen';
             this.li.style.background = 'lightgray';
             this.done.style.background = 'lightseagreen';
+            this.doneCheck = true;
         } else {
             this.li.style.textDecoration = 'none';
             this.li.style.color = 'lightcoral';
             this.li.style.background = 'white';
             this.done.style.background = 'none';
+            this.doneCheck = false;
         }
+        
+        todoCache[this.counter].doneCheck = this.doneCheck;
+        localStorage.setItem('todoCache', JSON.stringify(todoCache));
+
     }
 }
 
-const btn = document.getElementById('btn');
-const taskArr = [];
-let counter = 0;
 
 btn.addEventListener('click', () => {
     const text = document.getElementById('text');
     if (text.value) {
-        taskArr.push(new Task());
-        console.log(taskArr);
+        new Task(text.value);
     }
     
 })
 
-window.onbeforeunload = () => {
-    if(taskArr.length) {
-        const jsonArr = JSON.stringify(taskArr);
-        window.localStorage.setItem('taskArr', jsonArr);
-    }
-}
-
 window.onload = () => {
-    if(window.localStorage.length) {
-        const list = document.getElementById('list');
-        console.log(window.localStorage);
-        let jsonArr = JSON.parse(window.localStorage.getItem('taskArr'));
-        console.log(jsonArr);
-        taskArr.concat(jsonArr);
+    if(localStorage.length) {
+        let taskArr = JSON.parse(localStorage.getItem('todoCache'));
+        localStorage.clear();
         for (let i in taskArr) {
-            list.appendChild(taskArr[i].li);
+            if (taskArr[i] !== null) {
+                if (taskArr[i].doneCheck !== false) {
+                    new Task(taskArr[i].textValue).doneTask();
+                } else {
+                    new Task(taskArr[i].textValue);
+                }
+            }
         }
     }
 }
