@@ -16,6 +16,7 @@ body {
     padding: 10px 25px;
     box-shadow: 0 0 3px gray;
     border-radius: 5px;
+    overflow: hidden;
 }
 
 h1 {
@@ -38,9 +39,9 @@ h1 span {
     font-size: 15px;
     color: lightseagreen;
 }
-#text:focus {
+/* #text:focus {
     border: 2px solid lightseagreen;
-}
+} */
 
 #btn {
     width: 100%;
@@ -58,10 +59,12 @@ h1 span {
 
 #btn:hover {
     background: lightblue;
+    box-shadow: 0 0 2px lightcoral;
 }
 
 #btn:active {
     border: 2px solid lightseagreen;
+    box-shadow: 0 0 2px lightseagreen;
     color: lightseagreen;
 }
 
@@ -99,9 +102,14 @@ h1 span {
     border: none;
     outline: none;
     color: white;
-    font-weight: 600;
+    font-weight: 500;
     height: 23px;
     width: 23px;
+    padding-bottom: 3px; 
+}
+
+.delete:hover {
+    box-shadow: 0 0 3px lightcoral;
 }
 
 .delete:active {
@@ -117,12 +125,16 @@ h1 span {
     right: 30px;
     top: 50%;
     transform: translateY(-50%);
-    outline: none;
-    color: white;
-    padding: 0 5px 3px;
+    color: lightseagreen;
+    padding: 2px 3px 0;
     width: 23px;
     height: 23px;
     line-height: 1em;
+    font-size: 16px;
+}
+
+.done:hover {
+    box-shadow: 0 0 2px lightseagreen;
 }
 
 .done:active {
