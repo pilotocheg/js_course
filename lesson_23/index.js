@@ -39,27 +39,26 @@ class Task {
             doneCheck: this.doneCheck
         };
         localStorage.setItem('todoCache', JSON.stringify(todoCache));
-        // console.log(taskArr);
 
         text.value = '';
         counter++;
     };
 
     deleteTask() {
-        this.li.remove();
-        taskArr.splice(this.counter, 1);
-        todoCache.splice(this.counter, 1);
-        localStorage.setItem('todoCache', JSON.stringify(todoCache));
-        for(let i = 0; i < taskArr.length; i++) {
-            if (i >= this.counter) {
-                taskArr[i].counter -= 1;
+        this.deleteAnimation()     
+        .then(() => {
+            this.li.remove();
+            taskArr.splice(this.counter, 1);
+            todoCache.splice(this.counter, 1);
+            localStorage.setItem('todoCache', JSON.stringify(todoCache));
+            for(let i = 0; i < taskArr.length; i++) {
+                if (i >= this.counter) {
+                    taskArr[i].counter -= 1;
+                }
             }
-        }
-        counter--;
-        // console.log(taskArr);
-
-    }
-    
+            counter--;
+        });
+    };
     doneTask() {
         if(!this.doneCheck) {
             this.li.style.textDecoration = 'line-through';
@@ -80,7 +79,21 @@ class Task {
         todoCache[this.counter].doneCheck = this.doneCheck;
         localStorage.setItem('todoCache', JSON.stringify(todoCache));
     }
-}
+    deleteAnimation() {
+        return new Promise(resolve => {
+            let delAnimCount = 1;
+            this.del.setAttribute('disabled', 'true');
+            this.delInterval = setInterval(() => {
+                if(delAnimCount > 100) {
+                    clearInterval(this.delInterval);
+                    resolve();
+                }
+                this.li.style.transform = `translateX(${delAnimCount}%)`
+                delAnimCount += 1;
+            }, 2);
+        });
+    };
+};
 
 text.onfocus = () => {
     text.style.border = '2px solid lightseagreen';
@@ -111,13 +124,16 @@ btn.addEventListener('click', () => {
 
 window.onload = () => {
     if(localStorage.length) {
-        let taskArr = JSON.parse(localStorage.getItem('todoCache'));
-        localStorage.clear();
-        for (let i in taskArr) {
-            if (taskArr[i].doneCheck !== false) {
-                new Task(taskArr[i].textValue).doneTask();
-            } else {
-                new Task(taskArr[i].textValue);
+        let tempArr = JSON.parse(localStorage.getItem('todoCache'));
+        localStorage.removeItem('todoCache');
+        for (let i in tempArr) {
+            if (tempArr[i].hasOwnProperty('textValue') && tempArr[i].textValue.length) {
+                if (tempArr[i].doneCheck !== false) {
+                    taskArr.push(new Task(tempArr[i].textValue).doneTask());
+                } else {
+                    taskArr.push(new Task(tempArr[i].textValue));
+                }
+                console.log('ok');
             }
         }
     }
