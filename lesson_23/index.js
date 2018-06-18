@@ -5,9 +5,10 @@ const taskArr = [];
 let counter = 0;
 
 class Task {
-    constructor (textValue) {
+    constructor (textValue, isOnLoad) {
         this.list = document.getElementById('list');
         this.textValue = textValue;
+        this.isOnLoad = isOnLoad;
 
         this.li = document.createElement('li');
         this.del = document.createElement('button');
@@ -20,28 +21,39 @@ class Task {
     }
 
     createTask() {
-        this.done.setAttribute('class', 'done');
-        this.done.innerHTML = '&#10004;';
-        this.input.type = 'checkbox';
-        this.input.onchange = this.doneTask.bind(this);
-        this.done.appendChild(this.input);
-        this.del.setAttribute('class', 'delete');
-        this.del.innerHTML = '&#10008;';
-        this.del.onclick = this.deleteTask.bind(this);
-
-        this.li.appendChild(document.createTextNode(this.textValue));
-        this.li.appendChild(this.done);
-        this.li.appendChild(this.del);
-        this.list.appendChild(this.li);
-
-        todoCache[this.counter] = {
-            textValue: this.textValue,
-            doneCheck: this.doneCheck
-        };
-        localStorage.setItem('todoCache', JSON.stringify(todoCache));
-
-        text.value = '';
-        counter++;
+        let wordsArr = this.textValue.split(/\s/);
+        let lengthCheck = true;
+        wordsArr.forEach(element => {
+            if (element.length > 20) {
+                lengthCheck = false;
+            }
+        });
+        if (!this.textValue.match(/<script>/ig) && this.textValue.match(/\S/ig) && lengthCheck) {
+            this.done.setAttribute('class', 'done');
+            this.done.innerHTML = '&#10004;';
+            this.input.type = 'checkbox';
+            this.input.onchange = this.doneTask.bind(this);
+            this.done.appendChild(this.input);
+            this.del.setAttribute('class', 'delete');
+            this.del.innerHTML = '&#10008;';
+            this.del.onclick = this.deleteTask.bind(this);
+    
+            this.li.appendChild(document.createTextNode(this.textValue));
+            this.li.appendChild(this.done);
+            this.li.appendChild(this.del);
+            this.list.appendChild(this.li);
+    
+            todoCache[this.counter] = {
+                textValue: this.textValue,
+                doneCheck: this.doneCheck
+            };
+            localStorage.setItem('todoCache', JSON.stringify(todoCache));
+    
+            text.value = '';
+            counter += 1;  
+        } else {
+            inputErr(this.isOnLoad);
+        }
     };
 
     deleteTask() {
@@ -95,13 +107,13 @@ class Task {
     };
 };
 
-text.onfocus = () => {
+text.addEventListener('focus', () => {
     text.style.border = '2px solid lightseagreen';
     text.style.boxShadow = '0 0 2px lightseagreen';
     text.style.color = 'lightseagreen';
     text.value = '';
     btn.removeAttribute('disabled');
-}
+})
 
 text.onblur = () => {
     text.style.border = '2px solid lightcoral';
@@ -111,13 +123,10 @@ text.onblur = () => {
 
 btn.addEventListener('click', () => {
     if (text.value) {
-        taskArr.push(new Task(text.value));
+        taskArr.push(new Task(text.value, false));
     } else {
-        text.style.border = '2px solid red';
-        text.style.boxShadow = '0 0 2px red';
-        text.style.color = 'red';
-        text.value = 'Type your task:'
-        btn.setAttribute('disabled', 'true');
+        inputErr();
+        text.value = 'Type your task:';
     }
     
 })
@@ -129,12 +138,21 @@ window.onload = () => {
         for (let i in tempArr) {
             if (tempArr[i].hasOwnProperty('textValue') && tempArr[i].textValue.length) {
                 if (tempArr[i].doneCheck !== false) {
-                    taskArr.push(new Task(tempArr[i].textValue).doneTask());
+                    taskArr.push(new Task(tempArr[i].textValue, true).doneTask());
                 } else {
-                    taskArr.push(new Task(tempArr[i].textValue));
+                    taskArr.push(new Task(tempArr[i].textValue, true));
                 }
                 console.log('ok');
             }
         }
+    }
+}
+
+function inputErr(isOnLoad) {
+    if (!isOnLoad) {
+        text.style.border = '2px solid red';
+        text.style.boxShadow = '0 0 2px red';
+        text.style.color = 'red';
+        btn.setAttribute('disabled', 'true');
     }
 }
