@@ -16,7 +16,7 @@ class Email {
 
 class Phone {
     constructor() {
-        this.regExp = /^\+\d\d(\(\d{3}\)|\d{3})\d{3}\-?\d{2}\-?\d{2}$/;
+        this.regExp = /^\+\d\d(\(\d{3}\)|\d{3})\d{3}(\-|\s)?\d{2}(\-|\s)?\d{2}$/;
         this.phone = document.getElementById('phone');
         this.phone.onchange = this.testPhone.bind(this);
     }
@@ -37,6 +37,9 @@ class TextArea {
         this.search.onclick = this.findEmails.bind(this);
     }
     findEmails() {
+        if(this.list) {
+            this.list.remove();
+        }
         this.emailList = this.content.value.match(this.regExp);
         if(this.emailList) {
             this.list = document.createElement('ol');
