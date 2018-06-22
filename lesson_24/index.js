@@ -43,12 +43,17 @@ class TextArea {
         this.emailList = this.content.value.match(this.regExp);
         if(this.emailList) {
             this.list = document.createElement('ol');
-            this.emailList.forEach(el => {
+            cycle: for (let i = 0; i < this.emailList.length; i++){
+            	for (let k = 0; k < i; k++) {
+            		if (this.emailList[i] === this.emailList[k]) {
+            			continue cycle;
+            		}
+            	}
                 let li = document.createElement('li');
-                li.id = el;
-                li.textContent = el;
+                li.id = this.emailList[i];
+                li.textContent = this.emailList[i];
                 this.list.appendChild(li);
-            });
+            };
             document.body.appendChild(this.list);
         }
     }
