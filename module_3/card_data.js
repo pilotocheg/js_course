@@ -11,7 +11,7 @@ export default class CardData {
 
         this.cardCache = JSON.parse(localStorage.getItem('cache')) || {};
         window.onload = () => {
-            if (this.cardCache.length) {
+            if (this.cardCache.length && typeof(this.cardCache) === 'object') {
                 this.setData(this.cardCache);
             }
         }
@@ -32,11 +32,8 @@ export default class CardData {
     setData(obj) {
         if(this.cardCache !== obj){
             if(this.table){
-                delete this.table;
-                delete this.clearBtn;
-                document.getElementById('tab').remove();
-                document.getElementById('clear').remove();
-                // this.setData.bind(this);
+                this.table.remove();
+                this.clearBtn.remove();
             }
             this.cardCache = obj;
             localStorage.setItem('cache', JSON.stringify(this.cardCache));
@@ -66,11 +63,10 @@ export default class CardData {
         this.clearBtn.id = 'clear';
         this.clearBtn.textContent = 'clear';
         this.clearBtn.onclick = () => {
-            delete this.table;
-            document.getElementById('tab').remove();
+            this.table.remove();
             this.cardCache = {};
             localStorage.setItem('cache', JSON.stringify(this.cardCache));
-            document.getElementById('clear').remove();
+            this.clearBtn.remove();
         }
         document.body.appendChild(this.clearBtn);
     }
