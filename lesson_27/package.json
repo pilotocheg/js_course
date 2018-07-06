@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
+  "name": "lesson_27",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "host": "parcel index.html -p 3000"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

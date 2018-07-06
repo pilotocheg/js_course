@@ -80,7 +80,6 @@ export default class UIController {
             return fetch(`https://api.bincodes.com/cc/?format=json&api_key=d96ca493f5be297f8c304a87edcdf6a8&cc=${this.cardNum}`)
                 .then(response => {
                     if(response.status === 200) {
-                        // console.log(response.json());
                         return response.json();
                     } else {
                         throw new Error(response.status);

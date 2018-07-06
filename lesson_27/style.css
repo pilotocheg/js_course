@@ -1,0 +1,28 @@
+* {
+  margin: 5px;
+  font-size: 15px;
+  font-family: Arial;
+}
+#input {
+  width: 300px;
+  display: block;
+}
+#textarea {
+  width: 500px;
+  height: 500px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 5px;
+}
+#textDiv {
+  width: 500px;
+  height: 500px;
+  border: 1px solid gray;
+  display: inline-block;
+  vertical-align: top;
+  padding: 5px;
+}
+span {
+  background: yellow;
+  margin: 0;
+}
