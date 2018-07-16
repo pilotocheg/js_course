@@ -39,9 +39,9 @@ TodoItem.propTypes = {
   onRemove: PropTypes.func,
 }
 
-class FilterBtn extends React.Component {
+// class FilterBtn extends React.Component {
 
-}
+// }
 
 class TodoApp extends React.Component {
   constructor() {
@@ -53,6 +53,19 @@ class TodoApp extends React.Component {
     };
   }
 
+  componentWillMount() {
+    if(localStorage.myTodo) {
+      const list = JSON.parse(localStorage.getItem('myTodo'))
+      if(Array.isArray(list)) {
+        this.setState({
+          list: list
+        })
+      }
+    }
+  }
+  componentDidUpdate() {
+    localStorage.setItem('myTodo', JSON.stringify(this.state.list));
+  }
   onItemAdd(e) {
     if (e.keyCode === 13 && e.target.value.length) {
       this.setState({
@@ -62,6 +75,8 @@ class TodoApp extends React.Component {
           compleled: false,
           display: this.state.display !== 'completed' ? 'block': 'none'
         })
+      }, () => {
+        localStorage.setItem('myTodo', JSON.stringify(this.state.list))
       })
     e.target.value = '';
     }
@@ -96,6 +111,8 @@ class TodoApp extends React.Component {
 
       this.setState({
         list: this.state.list
+      }, () => {
+        localStorage.setItem('myTodo', JSON.stringify(this.state.list))
       })
     }
   }
