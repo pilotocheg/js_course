@@ -3,6 +3,47 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 class TodoItem extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isRedactor: false,  
+    };
+  }
+  componentWillMount() {
+    this.setState({
+      text: this.props.value
+    })
+  }
+  toggleTextRedactor() {
+    this.setState({
+      isRedactor: !this.state.isRedactor 
+    })
+  }
+
+  textRedactorBlur() {
+    this.setState({
+      isRedactor: false
+    })
+  }
+
+  getTextData(e) {
+    this.setState({
+      text: e.target.value
+    })
+  }
+
+  pushTextDataOnBlur() {
+    this.textRedactorBlur();
+    this.props.onTextChange(this.props.id, this.state.text);
+  }
+
+  pushTextData(e) {
+    if (e.keyCode === 27 || e.keyCode === 13) {
+      this.pushTextDataOnBlur();
+    }
+  }
+
   render() {
     return(
       <li 
@@ -11,6 +52,7 @@ class TodoItem extends React.Component {
           color: this.props.completed ? '#d9d9d9' : '#4d4d4d',
           display: this.props.display
         }}
+        onDoubleClick={ this.toggleTextRedactor.bind(this) }
       >
         <button 
           onClick={ this.props.onToggle } 
@@ -22,10 +64,20 @@ class TodoItem extends React.Component {
         >&#10003;</button>
         { this.props.value }
         <button
-          onClick= { this.props.onRemove }
+          onClick={ this.props.onRemove }
           id="delete-btn"
         >&#10006;</button>
-        {/* <input id="textRedactor" type="text"/> */}
+        <input 
+          id="textRedactor" 
+          type="text" 
+          value={ this.state.text } 
+          onChange={ this.getTextData.bind(this) }
+          onKeyDown={
+            this.pushTextData.bind(this)
+          } 
+          onBlur={ this.pushTextDataOnBlur.bind(this) }
+          style={ { display: this.state.isRedactor ? 'block' : 'none' } }
+          />
       </li>
     )
   }
@@ -39,9 +91,19 @@ TodoItem.propTypes = {
   onRemove: PropTypes.func,
 }
 
-// class FilterBtn extends React.Component {
-
-// }
+class FilterBtn extends React.Component {
+  render() {
+    return (
+      <button
+        styles={ { 'borderColor': 
+          this.props.display == this.props.value ? 'rgba(175, 47, 47, 0.2)' : 'none'} } 
+        value={ this.props.value }
+        onClick={ this.props.filterItems } 
+        id={ this.props.id } 
+      >{ this.props.value }</button>
+    )
+  }
+}
 
 class TodoApp extends React.Component {
   constructor() {
@@ -55,16 +117,17 @@ class TodoApp extends React.Component {
 
   componentWillMount() {
     if(localStorage.myTodo) {
-      const list = JSON.parse(localStorage.getItem('myTodo'))
-      if(Array.isArray(list)) {
+      const localState = JSON.parse(localStorage.getItem('myTodo'))
+      if(Array.isArray(localState.list)) {
         this.setState({
-          list: list
+          list: localState.list,
+          display: localState.display
         })
       }
     }
   }
   componentDidUpdate() {
-    localStorage.setItem('myTodo', JSON.stringify(this.state.list));
+    localStorage.setItem('myTodo', JSON.stringify(this.state));
   }
   onItemAdd(e) {
     if (e.keyCode === 13 && e.target.value.length) {
@@ -72,19 +135,29 @@ class TodoApp extends React.Component {
         list: this.state.list.concat({
           value: e.target.value,
           id: Math.random(),
-          compleled: false,
+          completed: false,
           display: this.state.display !== 'completed' ? 'block': 'none'
         })
-      }, () => {
-        localStorage.setItem('myTodo', JSON.stringify(this.state.list))
       })
     e.target.value = '';
     }
   }
-
+  onTextChange(id, text) {
+    if(text) {
+      const tempArr = this.state.list;
+      tempArr.forEach(item => {
+        if (item.id === id) item.value = text;
+      })
+      this.setState({
+        list: tempArr
+      })
+    } else {
+      this.onItemRemove(id)
+    }
+  }
   handleAllComplete(e) {
     const checkedList = this.state.list;
-    if (!this.state.list.filter(item => !item.completed).length && e.target.checked) {
+    if (!this.state.list.filter(item => !item.completed).length) {
       e.target.checked = false;
     }
     checkedList.forEach((item)=>{
@@ -104,17 +177,15 @@ class TodoApp extends React.Component {
   }
 
   onCompletedToggle(id) {
-    const result = this.state.list.filter( item => item.id === id )[0];
-
-    if(result) {
-      result.completed = !result.completed;
-
-      this.setState({
-        list: this.state.list
-      }, () => {
-        localStorage.setItem('myTodo', JSON.stringify(this.state.list))
-      })
-    }
+    const itemsList = this.state.list;
+    itemsList.forEach(item => {
+      if (item.id === id) {
+        item.completed = !item.completed; 
+      }
+    })
+    this.setState({
+      list: itemsList
+    })
   }
 
   clearCompleted() {
@@ -200,6 +271,7 @@ class TodoApp extends React.Component {
                   key={ item.id }
                   onToggle={this.onCompletedToggle.bind(this, item.id)}
                   onRemove={this.onItemRemove.bind(this, item.id)}
+                  onTextChange={ this.onTextChange.bind(this) }
                   completed={ item.completed }
                   display={item.display}
                 />
@@ -214,21 +286,9 @@ class TodoApp extends React.Component {
               {this.state.list.filter(item => !item.completed).length === 1 ? 'item left' : 'items left'}
             </span>
             <div id="buttons-div">
-              <button
-                styles={ { "border": this.state.display == 'all' ? '1px solid rgba(175, 47, 47, 0.2)' : 'none'} } 
-                value="all" 
-                onClick={this.filterItems.bind(this)} 
-                id="all-btn">All</button>
-              <button
-                styles={ { "borderColor": this.state.display == 'active' ? 'rgba(175, 47, 47, 0.2)' : 'rgba(175, 47, 47, 0.1)'} } 
-                value="active" 
-                onClick={this.filterItems.bind(this)} 
-                id="active-btn">Active</button>
-              <button
-                styles={ { "borderColor": this.state.display == 'completed' ? 'rgba(175, 47, 47, 0.2)' : 'none' } } 
-                value="completed" 
-                onClick={this.filterItems.bind(this)} 
-                id="completed-btn">Completed</button>
+              <FilterBtn id="all-btn" value="all" display={ this.state.display }  filterItems={ this.filterItems.bind(this) }/>
+              <FilterBtn id="active-btn" value="active" display={ this.state.display }  filterItems={ this.filterItems.bind(this) }/>
+              <FilterBtn id="completed-btn" value="completed" display={ this.state.display }  filterItems={ this.filterItems.bind(this) }/>
             </div>
             {
               this.state.list.filter(item => item.completed).length ?
